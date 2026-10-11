@@ -1,2 +1,4 @@
 .DS_Store
-TLA-practical
+TLA-practical/
+states/
+*.out
