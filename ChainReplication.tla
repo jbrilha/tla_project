@@ -2,7 +2,8 @@
 EXTENDS Naturals, Sequences
 
 CONSTANTS
-  Values
+  Values,
+  MaxInFlight   \* most updates the link can have in flight
 
 VARIABLES 
   headVal,      \* copy of the value at the head node
@@ -24,5 +25,22 @@ Init ==
   /\ headVal = InitVal
   /\ tailVal = InitVal
   /\ link = <<>>
+
+Update(v) ==
+  /\ Len(link) < MaxInFlight
+  /\ headVal' = v
+  /\ link' = Append(link, v)
+  /\ UNCHANGED tailVal
+
+Forward ==
+  /\ link # <<>>
+  /\ tailVal' = Head(link)
+  /\ link' = Tail(link)
+  /\ UNCHANGED headVal
+
+Next == (\E v \in Values : Update(v)) \/ Forward
+
+Spec ==
+  /\ Init /\ [][Next]_vars
 
 =============================================================================
