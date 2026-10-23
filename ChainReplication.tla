@@ -59,4 +59,18 @@ Next == (\E v \in Values : Update(v)) \/ Forward \/ Query
 Spec ==
   /\ Init /\ [][Next]_vars
 
+\* collect all update replies sent before reply r
+UpdatesBefore(r) == SelectSeq(SubSeq(replies, 1, r - 1), IsUpdate)
+
+\* the value from the last reply in s or 0 if nothing was sent yet
+LastVal(s) == IF s = <<>> THEN InitVal ELSE s[Len(s)].val
+
+\* what value was written by hte last acked update u
+LastAckedBefore(u) == LastVal(UpdatesBefore(u))
+
+\* for every reply r, if it was to a query request, its value is the last one acked at the time it was sent
+StrongConsistency ==
+  \A r \in 1..Len(replies) :
+    IsQuery(replies[r]) => replies[r].val = LastAckedBefore(r)
+
 =============================================================================
