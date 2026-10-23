@@ -72,8 +72,7 @@ Query ==
 
 Next == (\E v \in Values : Update(v)) \/ Forward \/ Query
 
-Spec ==
-  /\ Init /\ [][Next]_vars
+Spec == Init /\ [][Next]_vars /\ WF_vars(Forward)
 
 \* reads at head instead
 BadQuery ==
@@ -84,6 +83,8 @@ BadQuery ==
 BadNext == (\E v \in Values : Update(v)) \/ Forward \/ BadQuery
 
 BadSpec == Init /\ [][BadNext]_vars
+
+NoFairSpec == Init /\ [][Next]_vars
 
 \* for every reply r, if it was to a query request, its value is the last one acked at the time it was sent
 StrongConsistency ==
@@ -98,5 +99,9 @@ TailIsAcked == tailVal = ValueAfter(Acked)
 LinkHasPending ==
   /\ Acked + Len(link) = Len(updates)
   /\ link = SubSeq(updates, Acked + 1, Len(updates))
+
+\* for every update i, if it was applied by the head, then the tail eventually acks it
+EveryUpdateIsAcked ==
+  \A i \in 1..MaxUpdates : (Len(updates) >= i) ~> (Acked >= i)
 
 =============================================================================
