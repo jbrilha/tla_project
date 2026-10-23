@@ -2,3 +2,4 @@
 TLA-practical/
 states/
 *.out
+*_TTrace_*
