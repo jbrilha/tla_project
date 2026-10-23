@@ -3,7 +3,7 @@ EXTENDS Naturals, Sequences
 
 CONSTANTS
   Values,
-  MaxUpdates,   \* most acked the link can have in flight
+  MaxUpdates,   \* most updates the link can have in flight
   MaxQueries    \* most queries the link can have in flight
 
 VARIABLES 
