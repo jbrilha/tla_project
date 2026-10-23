@@ -87,9 +87,6 @@ def main():
         w = csv.DictWriter(f, fields)
         w.writeheader()
         w.writerows(rows)
-    lines = ["| " + " | ".join(fields) + " |", "|" + " --- |" * len(fields)]
-    lines += ["| " + " | ".join(str(r[k]) for k in fields) + " |" for r in rows]
-    (args.out / "scale.md").write_text("\n".join(lines) + "\n")
 
 
 if __name__ == "__main__":
