@@ -59,6 +59,16 @@ Next == (\E v \in Values : Update(v)) \/ Forward \/ Query
 Spec ==
   /\ Init /\ [][Next]_vars
 
+\* reads at head instead
+BadQuery ==
+  /\ QueryCount < MaxQueries
+  /\ replies' = Append(replies, [op |-> "query", val |-> headVal])
+  /\ UNCHANGED <<headVal, tailVal, link>>
+
+BadNext == (\E v \in Values : Update(v)) \/ Forward \/ BadQuery
+
+BadSpec == Init /\ [][BadNext]_vars
+
 \* collect all update replies sent before reply r
 UpdatesBefore(r) == SelectSeq(SubSeq(replies, 1, r - 1), IsUpdate)
 
