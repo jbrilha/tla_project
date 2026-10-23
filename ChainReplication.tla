@@ -1,5 +1,5 @@
 ------------------------------ MODULE ChainReplication ------------------------------
-EXTENDS Naturals, Sequences
+EXTENDS Naturals, Sequences, TLC
 
 CONSTANTS
   Values,
@@ -103,5 +103,7 @@ LinkHasPending ==
 \* for every update i, if it was applied by the head, then the tail eventually acks it
 EveryUpdateIsAcked ==
   \A i \in 1..MaxUpdates : (Len(updates) >= i) ~> (Acked >= i)
+
+Perms == Permutations(Values)
 
 =============================================================================
