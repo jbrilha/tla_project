@@ -3,3 +3,5 @@ TLA-practical/
 states/
 *.out
 *_TTrace_*
+__pycache__
+results*/
