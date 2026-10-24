@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 
 JAVA = os.environ.get("JAVA") or shutil.which("java") or "java"
-JAR = os.environ.get("TLA2TOOLS") or next(
+JAR = os.environ.get("TLA2TOOLS") or os.environ.get("CLASSPATH") or next(
     iter(sorted(glob.glob(os.path.expanduser("~/.vscode*/extensions/tlaplus.vscode-ide-*/tools/tla2tools.jar")))), "tla2tools.jar")
 
 
