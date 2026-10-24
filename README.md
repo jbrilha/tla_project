@@ -60,6 +60,16 @@ It expects `tla2tools.jar` on the `CLASSPATH`.
 ./scripts/tlc.sh ChainReplication.tla -config ChainReplicationLive.cfg
 ```
 
+Using VSCode, and the TLA+ extension (`tlaplus.vscode-ide`), with `ChainReplication.tla` open, then `Cmd/Ctrl+Shift+P`:
+
+| Command                                                  | What it does                                        |
+| -------------------------------------------------------- | --------------------------------------------------- |
+| `TLA+: Parse module`                                     | Syntax and semantic check only (SANY)               |
+| `TLA+: Check model with TLC`                             | Runs the checker, using the `.cfg` of the same name |
+| `TLA+: Check model with TLC using non-default config...` | Prompts for the `.cfg` file                         |
+| `TLA+: Run REPL in Terminal`                             | Evaluate expressions interactively                  |
+| `TLA+: Check and debug model with TLC`                   | Breakpoints, and step through states one at a time  |
+
 ## Scaling experiment
 
 `scripts/scale.py` runs TLC while sweeping one constant of a config, and writes `scale.csv` to `results/`.
@@ -90,7 +100,7 @@ Base: 2 values, 3 updates, 2 queries, 120s timeout per model.
 - **`MaxQueries` and `Values` grow polynomially.** 60 queries give 5.6 million states in 43 seconds. 40 values give 2.2 million states in 3 seconds.
 - **Symmetry** halves the state count with 2 values, and keeps it at 220 from 3 values on. Its cost grows with `|Values|!`, so 9 values time out.
 
-These results are further discussed in the presenation.
+These results are further discussed in the presentation (WIP).
 
 ## AI Usage
 
