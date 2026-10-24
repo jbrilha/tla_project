@@ -96,11 +96,12 @@ Hence, that sweep was ran again with `Perms` commented out, into `results-values
 
 Base: 2 values, 3 updates, 2 queries, 120s timeout per model.
 
-- **`MaxUpdates` grows exponentially**, about ×2.4 states per update. The limit is 15 updates (54.5 million states, 71 seconds), or 16 with symmetry.
+- **`MaxUpdates` grows exponentially.** The growth factor per update falls from ×4.6 to ×2.4, it stays above 2 because each update picks one of 2 values.
+  The limit is 15 updates (54.5 million states, 71 seconds), or 16 with symmetry.
 - **`MaxQueries` and `Values` grow polynomially.** 60 queries give 5.6 million states in 43 seconds. 40 values give 2.2 million states in 3 seconds.
 - **Symmetry** halves the state count with 2 values, and keeps it at 220 from 3 values on. Its cost grows with `|Values|!`, so 9 values time out.
 
-These results are further discussed in the presentation (WIP).
+These results are further discussed in the presentation.
 
 ## AI Usage
 
